@@ -1,2 +1,4 @@
-nimcache/*
+nimcache
 main
+nakefile
+static

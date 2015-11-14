@@ -1,9 +1,10 @@
 import nake
 import jester, asyncdispatch, browsers, closure_compiler # Stuff needed for JS target
-#import jester, browsers, closure_compiler # Stuff needed for JS target
 
 let parallelBuild = "--parallelBuild:1"
 let nimVerbose = "--verbosity:0"
+
+let frontendModule = "frontend"
 
 when defined(Windows):
     const silenceStdout = "2>nul"
@@ -47,7 +48,9 @@ task "run", "Run our server":
 
 task "js", "Build frontend js files":
     direShell nimExe, "js", #"-o:/dev/null", "-d:posix",
-              "--stackTrace:off", "--warning[LockLevel]:off", "frontend"
+              "--stackTrace:off", "--warning[LockLevel]:off", frontendModule
+    copyFile("nimcache/" & frontendModule & ".js",
+             "public/static/js/" & frontendModule & ".js")
     #closure_compiler.compileFileAndRewrite("nimcache/frontend.js",
     #                                       ADVANCED_OPTIMIZATIONS)
     #let settings = newSettings(staticDir = getCurrentDir())
