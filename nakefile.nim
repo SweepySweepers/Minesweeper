@@ -41,6 +41,7 @@ proc runNim(arguments: varargs[string]) =
 task defaultTask, "Build js and run server":
 #    createSDLIncludeLink("nimcache", true)
     runTask "js"
+    openDefaultBrowser "http://localhost:5000"
     runTask "run"
 
 task "run", "Run our server":
