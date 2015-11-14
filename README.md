@@ -13,4 +13,6 @@ $ bin/nake
 ```
 
 P.S. `bin/nake` is a wrapper for `nake`, which overrides known issues and takes
-same params
+same params.
+
+P.P.S. After running `bin/nake` first, you may use `./nakefile` binary instead.
