@@ -30,23 +30,28 @@ if dirExists(".git") or dirExists("Minesweeper.nimble"): # Install nimx
 #        trySymLink(sdlRoot/"include", dir/"SDL2")
 
 proc runNim(arguments: varargs[string]) =
-    var args = @[nimExe, "c", "--noMain", parallelBuild, "--stackTrace:on",
+    var args = @[nimExe, "c", parallelBuild, "--stackTrace:on",
                 "--lineTrace:on", nimVerbose, "-d:debug", "--opt:speed",
                 "--passC:-g", "--threads:on", "--warning[LockLevel]:off"]
     args.add arguments
     args.add "main"
     direShell args
 
-task defaultTask, "Build and run":
+task defaultTask, "Build js and run server":
 #    createSDLIncludeLink("nimcache", true)
-    discard runNim
+    runTask "js"
+    runTask "run"
 
-task "js", "Create Javascript version.":
-    direShell nimExe, "js",
-            "--stackTrace:off", "--warning[LockLevel]:off","main"
-    closure_compiler.compileFileAndRewrite("nimcache/main.js", ADVANCED_OPTIMIZATIONS)
-    let settings = newSettings(staticDir = getCurrentDir())
-    routes:
-        get "/": redirect "main.html"
-    openDefaultBrowser "http://localhost:5000"
-    runForever()
+task "run", "Run our server":
+    runNim "-r"
+
+task "js", "Build frontend js files":
+    direShell nimExe, "js", #"-o:/dev/null", "-d:posix",
+              "--stackTrace:off", "--warning[LockLevel]:off", "frontend"
+    #closure_compiler.compileFileAndRewrite("nimcache/frontend.js",
+    #                                       ADVANCED_OPTIMIZATIONS)
+    #let settings = newSettings(staticDir = getCurrentDir())
+    #routes:
+    #    get "/": redirect "main.html"
+    #openDefaultBrowser "http://localhost:5000"
+    #runForever()

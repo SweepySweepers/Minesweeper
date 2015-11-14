@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo "Dropping nimcache to workaround gcc issue..." && rm -rf nimcache
+echo "Running nake command itself:" && nake $*

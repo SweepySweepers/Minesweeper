@@ -1,4 +1,7 @@
+import os
 import jester, asyncdispatch, htmlgen
+
+#let settings = newSettings(staticDir = getCurrentDir() & "/static")
 
 routes:
     get "/":
