@@ -62,14 +62,19 @@ proc startApplication() =
     # tableView.reloadData()
     # tableView.selectRow(0)
 
+
 when defined js:
     import dom
     window.onload = proc (e: ref TEvent) =
         startApplication()
         startAnimation()
     window.onmousedown = proc (e: ref TEvent) =
-        switchPlaying(fieldSample)
-        echo "onmousedown"
+        if e.ctrlKey:
+            switchPlaying(fieldSample)
+        else:
+            mousedown(fieldSample, e.clientX.Coord, e.clientY.Coord)
+            # echo "("& $e.clientX & ", " & $e.clientY &")"
+            
 else:
     try:
         startApplication()
