@@ -1,6 +1,9 @@
 import dom
 
-proc consolelog(a: cstring) {.importc.}
+proc consolelog(a: cstring) {.importc:"""
+	function consolelog(a){
+            return window.console.log(a)
+        }""".}
 
 proc log(s: string) =
     consolelog(cstring(s))
@@ -14,8 +17,10 @@ type
     data*: cstring
 
 proc newWebsocket(): WebSocket {.importc:""" function() {
-    return new WebSocket('ws://' + location.hostname + ':5000', ['minesweeper'])
+    return new WebSocket('ws://' + location.hostname + ':8080', ['minesweeper'])
     }"""}
+
+log("Hello")
 
 var ws: WebSocket = newWebsocket()
 ws.onopen = proc(ev: ref TEvent) =
