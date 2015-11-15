@@ -19,10 +19,10 @@ var service*: WebSocketServer
 
 
 # Procedures
-proc onBeforeConnect(ws: WebSocketServer, client: WebSocket, headers: StringTableRef): bool =
+proc onBeforeConnect(ws: WebSocketServer, client: WebSocket, headers: StringTableRef): bool = true
     # Retrieve request's cookies
-    let c    = cookies.parseCookies(headers["Cookie"])
-    let auth = c["AUTH"]
+    #let c    = cookies.parseCookies(headers["Cookie"])
+    #let auth = c["AUTH"]
 
     # Validate user is logged in
     #return auth != "" and
