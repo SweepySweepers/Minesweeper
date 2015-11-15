@@ -52,7 +52,10 @@ proc onMessage(ws: WebSocketServer, client: WebSocket, message: WebSocketMessage
     #    )
 
 
-proc onConnected(ws: WebSocketServer, client: WebSocket, message: WebSocketMessage) = discard
+proc onConnected(ws: WebSocketServer, client: WebSocket, message: WebSocketMessage) =
+    echo "Connected"
+    echo message.data
+    ws.send(client, "Hi, there!")
 
 
 proc onDisconnected(ws: WebSocketServer, client: WebSocket, message: WebSocketMessage) = discard
