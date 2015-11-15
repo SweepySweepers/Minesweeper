@@ -62,6 +62,8 @@ task "js", "Build frontend js files":
     #runForever()
 
 task "ws", "Run ws server":
-    direShell nimExe, "c", parallelBuild, "--stackTrace:on",
+    direShell nimExe, "c", "-r",
               "--lineTrace:on", nimVerbose, "-d:debug", "--opt:speed",
-              "--passC:-g", "--threads:on", "--warning[LockLevel]:off", wsModule
+              #"--threads:on",  # Don't add this arg since it leads to
+                                # Error: ':anonymous' is not GC-safe
+              "--passC:-g", "--warning[LockLevel]:off", wsModule

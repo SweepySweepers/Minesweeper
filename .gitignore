@@ -5,3 +5,5 @@ static
 client
 game
 .DS_Store
+wsserver
+wsclient
