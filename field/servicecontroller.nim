@@ -32,8 +32,8 @@ proc onBeforeConnect(ws: WebSocketServer, client: WebSocket, headers: StringTabl
 proc onMessage(ws: WebSocketServer, client: WebSocket, message: WebSocketMessage) =
     echo "Message data: ", message.data
     # Save client message & send to IRC manager
-    var e       = to[TClientMessage](message.data)
-    var message = e.message
+    #var e       = to[TClientMessage](message.data)
+    #var message = e.message
 
     #if message.toLower.startsWith("/me "):
     #    message = message.encodeAction()
