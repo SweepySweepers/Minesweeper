@@ -54,7 +54,7 @@ proc onMessage(ws: WebSocketServer, client: WebSocket, message: WebSocketMessage
 
 proc onConnected(ws: WebSocketServer, client: WebSocket, message: WebSocketMessage) =
     echo "Connected"
-    echo message.data
+    echo to[TClientMessage](message.data)
     ws.send(client, "Hi, there!")
 
 
