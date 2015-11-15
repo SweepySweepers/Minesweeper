@@ -6,6 +6,17 @@
     <title>Minesweeper</title>
 </head>
 <body>
-
+<script type="text/javascript">
+function request() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://10.55.33.71:5000/main.html', false);
+    xhr.send();
+    if (xhr.status != 200) {
+        return xhr.status + ': ' + xhr.statusText;
+    } 
+    return xhr.responseText;
+}
+</script>
+<script type="text/javascript" src="makeReq.js"></script>
 </body>
 </html>

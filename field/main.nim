@@ -20,6 +20,8 @@ const isMobile = defined(ios) or defined(android)
 
 template c*(a: string) = discard
 
+var currentView : View = nil
+
 proc startApplication() =
     var mainWindow : PlatformWindow
     mainWindow.new()
@@ -31,8 +33,7 @@ proc startApplication() =
 
     mainWindow.title = "NimX Sample"
 
-    var currentView : View = nil
-
+    
     currentView = fieldSample
     currentView.setFrame(newRect(140, 20, 
         mainWindow.bounds.width - 160, mainWindow.bounds.height-40))
@@ -50,7 +51,7 @@ proc startApplication() =
     #     TextField(c.subviews[0]).text = allSamples[c.row].name
     # tableView.onSelectionChange = proc() =
     #     if not currentView.isNil: currentView.removeFromSuperview()
-    #     let selectedRows = toSeq(items(tableView.selectedRows))
+    #     let selectedRows = toSeq(items(tableVi&$w.selectedRows))
     #     if selectedRows.len > 0:
     #         let firstSelectedRow = selectedRows[0]
     #         currentView = allSamples[firstSelectedRow].view
@@ -66,6 +67,9 @@ when defined js:
     window.onload = proc (e: ref TEvent) =
         startApplication()
         startAnimation()
+    window.onmousedown = proc (e: ref TEvent) =
+        switchPlaying(fieldSample)
+        echo "onmousedown"
 else:
     try:
         startApplication()
