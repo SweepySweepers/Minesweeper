@@ -5,6 +5,7 @@ let parallelBuild = "--parallelBuild:1"
 let nimVerbose = "--verbosity:0"
 
 let frontendModule = "frontend"
+let wsModule = "field/wsserver"
 
 when defined(Windows):
     const silenceStdout = "2>nul"
@@ -59,3 +60,8 @@ task "js", "Build frontend js files":
     #    get "/": redirect "main.html"
     #openDefaultBrowser "http://localhost:5000"
     #runForever()
+
+task "ws", "Run ws server":
+    direShell nimExe, "c", parallelBuild, "--stackTrace:on",
+              "--lineTrace:on", nimVerbose, "-d:debug", "--opt:speed",
+              "--passC:-g", "--threads:on", "--warning[LockLevel]:off", wsModule
