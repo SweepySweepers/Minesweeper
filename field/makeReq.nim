@@ -1,0 +1,1 @@
+proc request*(): cstring {.importc.}
